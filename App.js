@@ -1,14 +1,15 @@
 import 'react-native-gesture-handler';
 import * as React from "react";
-import { View, Text,StyleSheet, StatusBar } from "react-native";
+import { Provider } from "react-redux";
+import { StyleSheet, StatusBar } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { enableScreens } from 'react-native-screens';
-import {ThemeManager} from 'react-native-ui-lib'
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-
-import LoginScreen from "./Screens/LoginScreen";
-import Dashboard from './Screens/DashboardScreen';
+import { ConfigureStore } from './redux/configureStore';
+import StackNavigator from './Screens/StackNavigator'
+import { PersistGate } from 'redux-persist/integration/react';
 
 
 
@@ -16,21 +17,18 @@ enableScreens();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  const {store,persistor} = ConfigureStore()
   return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+    <SafeAreaProvider>
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{
-        statusBarStyle:"auto",
-        headerShown:false,
-        contentStyle:{
-          backgroundColor:"white"
-        }
-      }}>
-        <Stack.Screen component={LoginScreen} name="LoginScreen" options={{
-          screenOrientation:"portrait_up",
-        }}/>
-        <Stack.Screen component={Dashboard} name="Profile"/>
-      </Stack.Navigator>
+      <StackNavigator />
     </NavigationContainer>
+    </SafeAreaProvider>
+    </PersistGate>
+    </Provider>
   );
 }
 

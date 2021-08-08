@@ -2,11 +2,25 @@ import React ,{useState }from 'react'
 import { StyleSheet } from 'react-native'
 import {Text,View,TextField,Button} from 'react-native-ui-lib'
 import commonStyle from '../shared/styles'
+import {authenticate} from '../Helper/api_call'
+import {connect} from 'react-redux'
+import { userLogin } from '../redux/ActionCreator'
 
-export default function LoginScreen({navigation}){
+function LoginScreen({navigation,dispatch}){
     var [email,setEmail] = useState("")
     var [password,setPass] = useState("")
-    const login =()=> navigation.replace("Profile")
+    const login =()=> {
+        authenticate(email,password)
+        .then((res)=>{
+            var json = res.json()
+            json.then((user)=>{
+                dispatch(userLogin(user))
+                navigation.replace("Profile",{user})
+            })
+        })
+        .catch((reason)=>console.log(reason))
+        
+    }
     return(
         <View style={styles.loginView}>
             <Text style={styles.appName}>CRMS</Text>
@@ -31,6 +45,9 @@ export default function LoginScreen({navigation}){
         </View>
     )
 }
+
+
+export default connect()(LoginScreen);
 
 const styles = StyleSheet.create({
     loginView:{
