@@ -111,7 +111,7 @@ function Dashboard({user,navigation}){
 
     return(
         <ParallaxScrollView
-        backgroundColor="blue"
+        backgroundColor="black"
         parallaxHeaderHeight={200}
         renderForeground={() => (
          <ProfilePic src={user.photo} />
