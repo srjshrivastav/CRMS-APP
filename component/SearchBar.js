@@ -4,6 +4,7 @@ import {
     StyleSheet,
     View,
     Text,
+    StatusBar,
 } from 'react-native';
 import SearchHeader from 'react-native-search-header';
 import {FontAwesome,Feather} from '@expo/vector-icons'
@@ -16,7 +17,8 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         width: DEVICE_WIDTH,
         paddingHorizontal:20,
-        paddingVertical:15
+        paddingVertical:15,
+        marginTop:StatusBar.currentHeight
     },
     label: {
         fontSize:20,
@@ -41,8 +43,12 @@ export const SearchBar = ({navigation,search}) => {
                 ref = { searchHeaderRef }
                 placeholder = 'Enter name...'
                 placeholderColor = 'gray'
-                onSearch={search}
+                onSearch={()=>
+                    searchHeaderRef.current.hide()}
                 enableSuggestion={false}
+                onEnteringSearch={search}
+                topOffset={StatusBar.currentHeight}
+                
             />
         </View>
     );

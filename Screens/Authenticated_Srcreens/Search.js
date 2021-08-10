@@ -32,6 +32,12 @@ export default class Seach extends React.Component{
     }
 
     async search(text){
+        if(text==""){
+            this.setState({
+                Criminals:[]
+            });
+            return
+        }
         this.setState(()=>({
             loading:true
         }))
