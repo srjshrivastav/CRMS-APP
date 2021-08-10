@@ -48,6 +48,7 @@ export const SearchBar = ({navigation,search}) => {
                 enableSuggestion={false}
                 onEnteringSearch={search}
                 topOffset={StatusBar.currentHeight}
+                onClear={()=>search({nativeEvent:{text:""}})}
                 
             />
         </View>
