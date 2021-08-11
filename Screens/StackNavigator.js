@@ -26,7 +26,6 @@ export function StackNavigator({isAuthenticated}) {
         },
         headerShown:false,
       }}>
-        {console.log("IS Authenticated",isAuthenticated)}
           {
               isAuthenticated?<Stack.Screen component={AuthenticatedDrawer} name="Profile"/>: 
               <Stack.Screen component={LoginScreen} name="LoginScreen" options={{

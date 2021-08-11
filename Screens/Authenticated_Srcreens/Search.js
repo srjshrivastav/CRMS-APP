@@ -24,7 +24,7 @@ export default class Seach extends React.Component{
                 marginRight:19
             }} />
             <View style={styles.cardBody}>
-                <Text style={styles.cardTitle}>{item.first_name }{item.middle_name }{item.last_name}</Text>
+                <Text style={styles.cardTitle}>{item.first_name} {item.middle_name } {item.last_name}</Text>
                 <Text style={styles.cardSubTitle}>Status : {item.status}</Text>
             </View>
         </View>
